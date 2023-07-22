@@ -33,7 +33,7 @@ public class ApplicationDebitCardTest {
         form.$("[data-test-id=\"phone\"] input").setValue("+79999999999");
         form.$("[data-test-id=\"agreement\"]").click();
         form.$(".button_theme_alfa-on-white").click();
-        form.$("[data-test-id=\"name\"] span.input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
+        form.$("[data-test-id=\"name\"].input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
     }
 
     @Test// Имя введено на латинице
@@ -43,7 +43,7 @@ public class ApplicationDebitCardTest {
         form.$("[data-test-id=\"phone\"] input").setValue("+79999999999");
         form.$("[data-test-id=\"agreement\"]").click();
         form.$(".button_theme_alfa-on-white").click();
-        form.$("[data-test-id=\"name\"] span.input__sub").shouldHave(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
+        form.$("[data-test-id=\"name\"].input_invalid .input__sub").shouldHave(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
     }
 
     @Test// В имени есть знак препинания
@@ -53,7 +53,7 @@ public class ApplicationDebitCardTest {
         form.$("[data-test-id=\"phone\"] input").setValue("+79999999999");
         form.$("[data-test-id=\"agreement\"]").click();
         form.$(".button_theme_alfa-on-white").click();
-        form.$("[data-test-id=\"name\"] span.input__sub").shouldHave(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
+        form.$("[data-test-id=\"name\"].input_invalid .input__sub").shouldHave(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
     }
 
     @Test // Строка телефон пустая
@@ -63,7 +63,7 @@ public class ApplicationDebitCardTest {
         form.$("[data-test-id=\"phone\"] input").setValue("");
         form.$("[data-test-id=\"agreement\"]").click();
         form.$(".button_theme_alfa-on-white").click();
-        form.$("[data-test-id=\"phone\"] span.input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
+        form.$("[data-test-id=\"phone\"].input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
     }
 
     @Test // Телефон без знака плюс
@@ -73,7 +73,7 @@ public class ApplicationDebitCardTest {
         form.$("[data-test-id=\"phone\"] input").setValue("79999999999");
         form.$("[data-test-id=\"agreement\"]").click();
         form.$(".button_theme_alfa-on-white").click();
-        form.$("[data-test-id=\"phone\"] span.input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
+        form.$("[data-test-id=\"phone\"].input_invalid .input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
     }
 
     @Test // Телефон состоит из 10 цифр
@@ -83,27 +83,27 @@ public class ApplicationDebitCardTest {
         form.$("[data-test-id=\"phone\"] input").setValue("+7999999999");
         form.$("[data-test-id=\"agreement\"]").click();
         form.$(".button_theme_alfa-on-white").click();
-        form.$("[data-test-id=\"phone\"] span.input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
+        form.$("[data-test-id=\"phone\"].input_invalid .input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
     }
 
-    @Test // Телефон состоит из 11 цифр
+    @Test // Телефон состоит из 12 цифр
     void negativeScenarioPhoneTwelveDigits() {
         SelenideElement form = $(".form_theme_alfa-on-white");
         form.$("[data-test-id=\"name\"] input").setValue("Иванов Иван");
         form.$("[data-test-id=\"phone\"] input").setValue("+799999999999");
         form.$("[data-test-id=\"agreement\"]").click();
         form.$(".button_theme_alfa-on-white").click();
-        form.$("[data-test-id=\"phone\"] span.input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
+        form.$("[data-test-id=\"phone\"].input_invalid .input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
     }
 
-    @Test // Строка телефон пустая
+    @Test // знаке в строке телефон
     void negativeScenarioPhoneWithSigns() {
         SelenideElement form = $(".form_theme_alfa-on-white");
         form.$("[data-test-id=\"name\"] input").setValue("Иванов Иван");
         form.$("[data-test-id=\"phone\"] input").setValue("+7(999)999-99-99");
         form.$("[data-test-id=\"agreement\"]").click();
         form.$(".button_theme_alfa-on-white").click();
-        form.$("[data-test-id=\"phone\"] span.input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
+        form.$("[data-test-id=\"phone\"].input_invalid .input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
     }
 
     @Test // Не поставлен чек бокс
